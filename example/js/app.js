@@ -8,6 +8,7 @@ angular.module('locatorDemo', [
     $scope.isModalVisible = false;
 
     $scope.toggleModal = function() {
+      console.log($scope.lookedUpLocation);
       $scope.isModalVisible = !$scope.isModalVisible;
     };
 
