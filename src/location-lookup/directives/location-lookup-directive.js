@@ -11,6 +11,7 @@ angular.module('locator')
         scope.limitTo = scope.$eval(iAttrs.limitTo) || 15;
         scope.callback = scope.$eval(iAttrs.callback);
         scope.results = [];
+        scope.showParts = scope.$eval(iAttrs.detailed);
 
         // Generate a DOM elment for Google Places Service
         var elem = document.createElement('div');
@@ -40,6 +41,17 @@ angular.module('locator')
                 latitude: place.geometry.location.lat(),
                 longitude: place.geometry.location.lng()
               };
+
+              if(scope.showParts) {
+                var parts = place.address_components.map(function(place) {
+                  return {
+                    value: place.long_name,
+                    types: place.types
+                  };                  
+                })
+
+                locData.parts = parts;
+              }
 
               // Update model
               model.$setViewValue(locData);
